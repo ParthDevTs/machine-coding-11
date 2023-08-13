@@ -3,7 +3,7 @@ import { useMovie } from '../context/movieContext'
 import MovieTile from '../components/MovieTile'
 
 function MovieLIsting() {
-    const { movieList, searchTerm, ratingList, releaseYearList } = useMovie()
+    const { movieList, searchTerm, ratingList, releaseYearList, genresList } = useMovie()
     const [genres, setGenres] = useState("All")
     const [year, setYear] = useState("All")
     const [rating, setRating] = useState("All")
@@ -25,6 +25,9 @@ function MovieLIsting() {
                             className="focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-[8rem] text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm"
                             placeholder='Genres' value={genres} onChange={(e) => setGenres(e.target.value)} name="genres" id="genres">
                             <option value="All">All</option>
+                            {genresList.map((genre, i) => {
+                                return <option value={genre} key={i}>{genre}</option>
+                            })}
                         </select>
                     </span>
                 </span>

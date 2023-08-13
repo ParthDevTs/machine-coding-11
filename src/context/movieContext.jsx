@@ -12,7 +12,8 @@ export const MovieProvider = ({ children }) => {
         watchlist: [],
         starred: [],
         ratingList: Array.from(new Set(movies.map((item) => item.rating))),
-        releaseYearList: Array.from(new Set(movies.map((item) => item.year)))
+        releaseYearList: Array.from(new Set(movies.map((item) => item.year))),
+        genresList: ['Drama', 'Crime', 'Action', 'Adventure', 'Fantasy', 'Romance', 'Sci-Fi', 'Biography']
     }
 
 
