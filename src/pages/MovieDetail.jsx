@@ -1,11 +1,12 @@
 import React from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useMovie } from '../context/movieContext'
-import { useNavigate } from 'react-router-dom';
 
-function MovieTile({ movieDetail }) {
-    const { addToWatchList, addToStarred, watchlist, starred, removeFromWatchlist, removeFromStarred } = useMovie()
+function MovieDetail() {
+    const { movieList, addToWatchList, addToStarred, watchlist, starred, removeFromWatchlist, removeFromStarred } = useMovie();
+    const { id } = useParams()
+    const movieDetail = movieList.find(movie => movie.id === parseInt(id))
     const navigate = useNavigate();
-
     const existsInStarred = starred.find(movie => movie.id === movieDetail.id) ? true : false;
     const existsInWatchlist = watchlist.find(movie => movie.id === movieDetail.id) ? true : false;
 
@@ -18,10 +19,12 @@ function MovieTile({ movieDetail }) {
         existsInStarred ? removeFromStarred(movie) : addToStarred(movie)
     }
     return (
-        <div onClick={() => navigate(`/movie/${movieDetail.id}`)} className="movieTile cursor-pointer border-b hover:shadow-md transition-shadow bg-white">
-            <div className="flex font-sans">
+        <div className=" min-h-[calc(100vh-4rem)]  w-full flex flex-col items-center gap-2 mt-5 justify-center relative">
+            <button onClick={() => navigate(-1)} className="absolute inset-x-10 inset-y-2 bg-teal-200 h-10 w-20 rounded  shadow-lg shadow-teal-500 font-mono uppercase hover:bg-teal-400 transition">Back</button>
+
+            <div className="flex font-sans bg-white rounded shadow-md">
                 <div className="flex-none w-48 relative transition-all">
-                    <img src={movieDetail.imageURL} alt={movieDetail.name} className="absolute hover:scale-95 duration-200 transition-all  inset-0 w-full h-full object-cover" loading="lazy" />
+                    <img src={movieDetail.imageURL} alt={movieDetail.name} className="absolute hover:scale-95 duration-200 transition-all inset-0 w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="flex-auto p-6 ">
                     <div className="flex flex-wrap">
@@ -41,6 +44,24 @@ function MovieTile({ movieDetail }) {
                     <div className="flex items-baseline mt-8 mb-6 pb-6 border-b border-slate-200">
                         <div className="space-x-2 flex text-sm min-h-10">
                             {movieDetail.summary}
+                        </div>
+                    </div>
+                    <div className="details flex flex-col gap-2 my-8">
+                        <div className="infogrp w-full flex gap-4">
+                            <p className=' w-20 font-semibold font-mono'>Year:</p>
+                            <p>{movieDetail.year}</p>
+                        </div>
+                        <div className="infogrp w-full flex gap-4">
+                            <p className=' w-20 font-semibold font-mono'>Writer:</p>
+                            <p>{movieDetail.writer}</p>
+                        </div>
+                        <div className="infogrp w-full flex gap-4">
+                            <p className=' w-20 font-semibold font-mono'>Genre:</p>
+                            <p>{movieDetail.genre.map(genre => `${genre} `)}</p>
+                        </div>
+                        <div className="infogrp w-full flex gap-4">
+                            <p className=' w-20 font-semibold font-mono'>Cast:</p>
+                            <p>{movieDetail.cast.map(cast => `${cast}  `)}</p>
                         </div>
                     </div>
 
@@ -75,4 +96,4 @@ function MovieTile({ movieDetail }) {
     )
 }
 
-export default MovieTile
+export default MovieDetail
