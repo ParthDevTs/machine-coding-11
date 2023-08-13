@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import { useMovie } from '../context/movieContext'
 import MovieTile from '../components/MovieTile'
+import CreateNewMove from '../components/createNewMove'
 
 function MovieLIsting() {
     const { movieList, searchTerm, ratingList, releaseYearList, genresList } = useMovie()
     const [genres, setGenres] = useState("All")
     const [year, setYear] = useState("All")
     const [rating, setRating] = useState("All")
-    // const [showAddNewMovie, setShowAddNewMovie] = useState(false)
+    const [showAddNewMovie, setShowAddNewMovie] = useState(false)
 
 
     return (
-        <div className="MovieListingPag min-h-[calc(100vh-4rem)] e w-full flex flex-col items-center gap-2 mt-5 ">
+        <div className={`MovieListingPag ${showAddNewMovie ? "h-[calc(100vh-6rem)] overflow-hidden" : "min-h-[calc(100vh-4rem)]"} e w-full flex flex-col items-center gap-2 mt-5`}>
+            {showAddNewMovie && <CreateNewMove setShowAddNewMovie={setShowAddNewMovie} />}
             <div className="filter__bar container w-full flex items-center justify-between px-4 py-2 shadow bg-white rounded" >
-                <h3 className="font-bold uppercase text-teal-400 drop-shadow-md">Movies</h3>
+                <h3 className="font-bold uppercase text-[#F5C518] bg-black font-mono px-2 rounded-md text-lg text-center drop-shadow-md">Movies</h3>
                 <span className="flex items-center justify-center gap-2 group relative">
                     <label htmlFor="genres" >Genres: </label>
                     <span className="group relative text-right">
@@ -65,7 +67,7 @@ function MovieLIsting() {
 
                     </span>
                 </span>
-                <button className="text-sm bg-[#F5C518] px-2 py-1 rounded shadow-md font-bold shadow-[#F5C518] hover:scale-95 transition">Add A Movie</button>
+                <button onClick={() => setShowAddNewMovie(true)} className="text-sm bg-[#F5C518] px-2 py-1 rounded shadow-md font-bold shadow-[#F5C518] hover:scale-95 transition">Add A Movie</button>
             </div>
             <div className="movie__container grid grid-cols-2 gap-8 px-9 py-4">
                 {movieList.filter((movie) => {

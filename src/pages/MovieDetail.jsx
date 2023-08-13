@@ -20,7 +20,7 @@ function MovieDetail() {
     }
     return (
         <div className=" min-h-[calc(100vh-4rem)]  w-full flex flex-col items-center gap-2 mt-5 justify-center relative">
-            <button onClick={() => navigate(-1)} className="absolute inset-x-10 inset-y-2 bg-teal-200 h-10 w-20 rounded  shadow-lg shadow-teal-500 font-mono uppercase hover:bg-teal-400 transition">Back</button>
+            <button onClick={() => navigate(-1)} className="absolute inset-x-10 inset-y-2  bg-black h-10 w-20 rounded text-[#F5C518]  shadow-lg shadow-slate-500 font-mono uppercase hover:scale-95 transition">Back</button>
 
             <div className="flex font-sans bg-white rounded shadow-md">
                 <div className="flex-none w-48 relative transition-all">
