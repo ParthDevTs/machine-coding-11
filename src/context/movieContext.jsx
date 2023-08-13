@@ -5,12 +5,14 @@ import { MovieReducer, actions } from "../reducer/movieReducer";
 export const MovieContext = createContext();
 
 export const MovieProvider = ({ children }) => {
+    const localWatchList = JSON.parse(localStorage.getItem("watchlist"))
+    const localStarredList = JSON.parse(localStorage.getItem("starred"))
     const [searchTerm, setSearchTerm] = useState("")
 
     const initialMoveiData = {
         movieList: movies,
-        watchlist: [],
-        starred: [],
+        watchlist: localWatchList ? localWatchList : [],
+        starred: localStarredList ? localStarredList : [],
         ratingList: Array.from(new Set(movies.map((item) => item.rating))),
         releaseYearList: Array.from(new Set(movies.map((item) => item.year))),
         genresList: ['Drama', 'Crime', 'Action', 'Adventure', 'Fantasy', 'Romance', 'Sci-Fi', 'Biography']
